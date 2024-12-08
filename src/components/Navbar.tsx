@@ -53,8 +53,10 @@ export default function Navbar() {
           />
           <FaSearch className="absolute right-3 top-2.5 text-gray-500" />
         </div>
-        <FaHeart className="text-gray-700 md:w-[24px] md:h-[24px] sm:w-[20px] sm:h-[20px] w-[16px] h-[16px]  cursor-pointer hover:text-black" />
-        <FaShoppingBag className="text-gray-700 md:w-[24px] md:h-[24px] sm:w-[20px] sm:h-[20px] w-[16px] h-[16px] cursor-pointer hover:text-black" />
+       
+        <Link href={""}>  <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24}/></Link>
+        <Link href={"/cart"}>  <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24}/></Link>
+       
       </div>
     </div>
 
