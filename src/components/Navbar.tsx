@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaSearch, FaHeart, FaShoppingBag } from 'react-icons/fa'; 
+import { FaSearch } from 'react-icons/fa'; 
 export default function Navbar() {
   return (
     <header className=''>
@@ -10,10 +10,13 @@ export default function Navbar() {
       <div>
   <p className="text-black text-[9px] md:text-sm bg-white px-1">Skip to main content</p>
 </div>
-      <div className="flex md:gap-4 sm:gap-3 gap-2 font-semibold">
+      <div className="flex md:gap-4 sm:gap-3 gap-1 font-semibold">
         <Link href="/location" className="hover:text-gray-800">Find a Store</Link>
+        <h2>|</h2>
         <Link href="#" className="hover:text-gray-800">Help</Link>
+        <h2>|</h2>
         <Link href="/Join" className="hover:text-gray-800">Join Us</Link>
+        <h2>|</h2>
         <Link href="/login" className="hover:text-gray-800">Sign In</Link>
       </div>
     </div>
@@ -43,7 +46,7 @@ export default function Navbar() {
       </nav>
 
       {/* Right section (Search, Wishlist, Cart) */}
-      <div className="flex items-center gap-4 mt-4 md:mt-0">
+      <div className="flex  items-center gap-4 mt-4 md:mt-0">
         {/* Search Bar */}
         <div className="relative hidden md:block">
           <input

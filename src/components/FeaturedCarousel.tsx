@@ -25,7 +25,7 @@ export function FeaturedCarousel() {
         {feature.map((item) => (
           
           <CarouselItem key={item.id} className=" md:basis-1/2 lg:basis-1/3 xl:basis-1/3">
-            <Link href={""}>
+            <Link href={`/products/${item.id}`}>
             <div className="p-1">
               <Card>
                 <CardContent className=" bg-[#F5F5F5] aspect-square group p-0">
