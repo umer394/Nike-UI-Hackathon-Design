@@ -16,10 +16,10 @@ interface Items {
 import { Button } from "@/components/ui/button"
 import { feature } from "@/data/homepage"
 import Image from "next/image"
-export default async function Products ({params}:Params){
+export default  function Products ({params}:Params){
 
-    const id  = (await params).id
-    const data:Items = feature[(Number(id)-1)]
+    const id = Number(params.id);
+    const data: Items = feature[id - 1];
     
     return (
         <main className="max-w-[1300px] mx-auto my-20">
