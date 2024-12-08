@@ -16,7 +16,7 @@ interface Items {
 import { Button } from "@/components/ui/button"
 import { feature } from "@/data/homepage"
 import Image from "next/image"
-export const Products = async ({params}:Params) => {
+export const page = async ({params}:Params) => {
 
     const { id } = await params
     const data: Items = feature[parseInt(id)-1];
