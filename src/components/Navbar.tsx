@@ -6,12 +6,12 @@ export default function Navbar() {
     <header className=''>
     {/* Top bar */}
     <div className="bg-[#fafafa] flex justify-between items-center px-6 py-2 md:text-[11px] sm:text-[9px] text-[8px] font-medium text-gray-500">
-      <Image src={"/header/logo.png"} alt={''} width={24} height={24}/>
+      <Link href={"/"}><Image src={"/header/logo.png"} alt={''} width={24} height={24}/></Link>
       <div>
-  <p className="text-black text-sm bg-white px-1">Skip to main content</p>
+  <p className="text-black text-[9px] md:text-sm bg-white px-1">Skip to main content</p>
 </div>
       <div className="flex md:gap-4 sm:gap-3 gap-2 font-semibold">
-        <Link href="#" className="hover:text-gray-800">Find a Store</Link>
+        <Link href="/location" className="hover:text-gray-800">Find a Store</Link>
         <Link href="#" className="hover:text-gray-800">Help</Link>
         <Link href="#" className="hover:text-gray-800">Join Us</Link>
         <Link href="#" className="hover:text-gray-800">Sign In</Link>
@@ -22,11 +22,14 @@ export default function Navbar() {
     <div className="flex flex-wrap justify-between items-center px-6 py-4">
       {/* Left section (Logo) */}
       <div className="flex items-center">
+        <Link href={"/"}>
         <Image
           src={"/header/nike.png"}
           alt="Nike Logo"
           width={35} height={35}
         />
+        </Link>
+        
       </div>
 
       {/* Center section (Navigation Links) */}

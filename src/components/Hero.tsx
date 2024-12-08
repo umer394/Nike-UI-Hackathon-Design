@@ -6,6 +6,10 @@ import { GearCarousel2 } from "./GearCarousel2"
 export default function Hero(){
     return (
         <main className="">
+            <section className="bg-[#F5F5F5] flex flex-col justify-center items-center">
+                 <h1 className="font-semibold">Hello Nike App</h1>
+                 <p className="text-sm">Download the app to access everything Nike. <u className="font-semibold">Get Your Great</u></p>
+           </section>
             <Image src={"/hero/hero.png"} alt={"shoes"} width={1344} height={700}/>
             <div className="flex flex-col justify-center items-center max-w-[480px] mx-auto space-y-3 my-10">
                 <p className="font-semibold">First Look</p>
