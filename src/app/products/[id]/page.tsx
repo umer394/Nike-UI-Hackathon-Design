@@ -1,6 +1,6 @@
 interface Params {
     params : {
-        id:number
+        id:string
         
     }
 }
@@ -19,7 +19,7 @@ import Image from "next/image"
 export default async function Products ({params}:Params){
 
     const id  = (await params).id
-    const data:Items = feature[id-1]
+    const data:Items = feature[(Number(id)-1)]
     
     return (
         <main className="max-w-[1300px] mx-auto my-20">
