@@ -10,7 +10,7 @@ export default function Featured(){
         <main className="my-20 max-w-[1300px] mx-auto flex gap-x-4 lg:gap-x-20">
            <section className="flex flex-col max-w-[200px]">
                 <h1 className="font-semibold text-sm  md:text-2xl">New(500)</h1>
-                <div className="font-medium text-[9px] lg:text-md max-w-[150px] space-y-2 mt-6 flex flex-col">
+                <div className="font-medium text-[9px] md:text-[14px] mx-3 lg:text-md max-w-[150px] space-y-2 mt-6 flex flex-col">
                     <Link href={""}>Shoes</Link>
                     <Link href={""}>Sports Bras</Link>
                     <Link href={""}>Tops & T-Shirts</Link>
