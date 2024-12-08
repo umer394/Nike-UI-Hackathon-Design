@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="flex md:gap-4 sm:gap-3 gap-2 font-semibold">
         <Link href="/location" className="hover:text-gray-800">Find a Store</Link>
         <Link href="#" className="hover:text-gray-800">Help</Link>
-        <Link href="/login" className="hover:text-gray-800">Join Us</Link>
+        <Link href="/Join" className="hover:text-gray-800">Join Us</Link>
         <Link href="/login" className="hover:text-gray-800">Sign In</Link>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
+import Link from "next/link"
 export default function Login(){
     return (
         <main>
@@ -32,7 +33,7 @@ export default function Login(){
                         <p className="text-[#BCBCBC] text-[12px]">and <u>Terms of Use</u></p>
                     </div>
                     <Button className="w-80 ronded-sm my-6">SIGN IN</Button>
-                    <p className="text-[#BCBCBC] text-[12px]">Not a Member <u className="text-black">Join Us?</u></p>
+                    <p className="text-[#BCBCBC] text-[12px]">Not a Member <Link href={"/Join"}> <u className="text-black">Join Us?</u></Link></p>
                 </div>
             </section>
         </main>
