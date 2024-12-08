@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { FaTwitter, FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa";
-import { IoLocationOutline } from "react-icons/io5";  // Import location icon
+import { IoLocationOutline } from "react-icons/io5";  
 
 export default function Footer() {
   return (
     <footer className="bg-black text-white py-8 px-6  ">
-<div className="flex justify-between flex-wrap" >
-<div className="flex justify-center gap-20 flex-wrap" >
+<div className="flex justify-between items-center flex-wrap gap-10" >
+<div className="md:flex justify-start space-y-10 md:space-y-0  gap-10 flex-wrap" >
           {/* Column 1 */}
-          <div>
+        <div>
         <h3 className="text-sm font-semibold mb-4">FIND A STORE</h3>
         <ul className="space-y-2 text-sm">
           <li><Link href="#" className="hover:underline">Become Link Member</Link></li>
@@ -42,7 +42,6 @@ export default function Footer() {
       </div>
 </div>
 
-      {/* Column 4 (Social Media Icons) */}
       <div className="flex justify-start lg:justify-end items-start gap-4">
         <FaTwitter className="text-lg cursor-pointer hover:text-gray-400" />
         <FaFacebook className="text-lg cursor-pointer hover:text-gray-400" />
@@ -51,9 +50,9 @@ export default function Footer() {
       </div>
 </div>
 
-      {/* Bottom Section */}
+ 
       <div className="mt-8 flex flex-wrap justify-between items-center text-xs text-gray-400">
-        {/* Country and Copyright */}
+       
         <div className="flex mb-4 md:mb-0 gap-2">
           <IoLocationOutline className='' />
           <p>India</p>
