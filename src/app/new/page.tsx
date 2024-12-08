@@ -79,11 +79,11 @@ export default function Featured(){
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Shoes</Button>
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">New Basketball Shoes</Button>
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">New Football Shoes</Button>
-                            <Button className="bg-white text-black rounded-full border-[1px] shadow-none">New Men's Shoes</Button>
+                            <Button className="bg-white text-black rounded-full border-[1px] shadow-none">New Men&apos;s Shoes</Button>
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">New Running Shoes</Button>
-                            <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Men's Shoes</Button>
+                            <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Men&apos;s Shoes</Button>
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">New Jordan Shoes</Button>
-                            <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Women's Shoes</Button>
+                            <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Women&apos;s Shoes</Button>
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Training & Gym</Button>
                         </div>
                     </section> 

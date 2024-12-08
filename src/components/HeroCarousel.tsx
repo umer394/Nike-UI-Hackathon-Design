@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel"
 
 import Link from "next/link"
-import { Button } from "./ui/button"
+
 import { airMax } from "@/data/homepage"
 
 export function CarouselSize() {
