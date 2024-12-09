@@ -3,6 +3,7 @@ import { Button } from "./ui/button"
 import { CarouselSize } from "./HeroCarousel"
 import { GearCarousel1 } from "./GearCarousel1"
 import { GearCarousel2 } from "./GearCarousel2"
+import Link from "next/link"
 export default function Hero(){
     return (
         <main className="">
@@ -18,7 +19,7 @@ export default function Hero(){
                 —designed to push you past your limits and help you go to the max.</p>
                 <div className="flex gap-2 pt-4">
                     <Button className="rounded-full">Notify Me</Button>
-                    <Button className="rounded-full">Shop Air Max</Button>
+                    <Link href={"/new"} >    <Button className="rounded-full">Shop Air Max</Button></Link>
                 </div>
             </div>
             <div>
@@ -31,7 +32,7 @@ export default function Hero(){
                 <div className="flex flex-col justify-center items-center space-y-5 pt-10">
                     <h1 className="font-semibold text-xl md:text-4xl">STEP INTO WHAT FEELS GOOD</h1>
                     <h2 className="text-[9px] md:text-sm">Cause everyone should know the feeling of running in that perfect pair.</h2>
-                    <Button className="rounded-full">Find Your Shoe</Button>
+                    <Link href={"/new"} > <Button className="rounded-full">Find Your Shoe</Button></Link>
                 </div>
             </section>
             <section>
@@ -47,7 +48,7 @@ export default function Hero(){
                 <div className="flex flex-col justify-center items-center space-y-5 pt-10">
                     <h1 className="font-semibold text-2xl md:text-4xl">FLIGHT ESSENTIALS</h1>
                     <h2 className="text-[9px] md:text-sm">Your built-to-last,all-week wears—but with style only Jordan Brand can deliver.</h2>
-                    <Button className="rounded-full">Shop</Button>
+                    <Link href={"/new"}><Button className="rounded-full">Shop</Button></Link>
                 </div>
             </section>
             <section className="">

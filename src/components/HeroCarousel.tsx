@@ -26,7 +26,7 @@ export function CarouselSize() {
         {airMax.map((item) => (
           
           <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
-            <Link href={""}>
+            <Link href={`/product/${item.id}`}>
             <div className="p-1">
               <Card>
                 <CardContent className=" bg-[#F5F5F5] aspect-square group ">

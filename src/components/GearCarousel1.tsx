@@ -26,7 +26,7 @@ export function GearCarousel1() {
         {gear1.map((item) => (
           
           <CarouselItem key={item.id} className="lg:basis-1/2">
-            <Link href={""}>
+            <Link href={`/gear1/${item.id}`}>
             <div className="p-1">
               <Card>
                 <CardContent className=" bg-[#F5F5F5] aspect-square group ">

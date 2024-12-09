@@ -26,14 +26,14 @@ export const airMax:Items[] = [
         img:"/hero/pic3.png",
         title:"Nike Air Max 97 SE",
         title2:"Men's Shoes",
-        price:"₹ 13 995"
+        price:"₹ 16 345"
     },
     {
         id:4,
         img:"/hero/pic3.png",
         title:"Nike Air Max 97 SE",
         title2:"Men's Shoes",
-        price:"₹ 13 995"
+        price:"₹ 6 455"
     },
 ]
 
