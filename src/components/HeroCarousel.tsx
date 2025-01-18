@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/carousel"
 
 import Link from "next/link"
+import { airMAx } from "./SanityFetch"
+import { urlFor } from "@/sanity/lib/image"
 
-import { airMax } from "@/data/homepage"
+
 
 export function CarouselSize() {
   return (
@@ -23,23 +25,23 @@ export function CarouselSize() {
       className="w-full"
     >
       <CarouselContent>
-        {airMax.map((item) => (
+        {airMAx.map((item) => (
           
-          <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
-            <Link href={`/product/${item.id}`}>
+          <CarouselItem key={item._id} className="md:basis-1/2 lg:basis-1/3">
+            <Link href={`/product/${item._id}`}>
             <div className="p-1">
               <Card>
                 <CardContent className=" bg-[#F5F5F5] aspect-square group ">
-                 <Image src={item.img} alt={"shoes"} width={440} height={440}/>
+                 <Image src={urlFor(item.image).width(440).url()} alt={"shoes"} width={440} height={440}/>
                 </CardContent>
                 
               </Card>
             </div>
                 <div className=" flex justify-between mx-2 mt-2">
-                  <h1 className="font-semibold text-sm">{item.title}</h1>
-                    <h2 className="font-semibold text-sm">{item.price}</h2>
+                  <h1 className="font-semibold text-sm">{item.name}</h1>
+                    <h2 className="font-semibold text-sm">${item.price}</h2>
                 </div>
-                <h3 className="ml-2 text-sm">{item.title2}</h3>
+                <h3 className="ml-2 text-sm">{item.category}</h3>
                 </Link>
           </CarouselItem>
         ))}

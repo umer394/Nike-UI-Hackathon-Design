@@ -2,7 +2,7 @@ import Image from "next/image"
 import { Button } from "./ui/button"
 import { CarouselSize } from "./HeroCarousel"
 import { GearCarousel1 } from "./GearCarousel1"
-import { GearCarousel2 } from "./GearCarousel2"
+
 import Link from "next/link"
 export default function Hero(){
     return (
@@ -39,7 +39,8 @@ export default function Hero(){
                 <h1 className="font-semibold text-xl mb-3 ml-2">Gear Up</h1>
                 <div className="md:flex space-y-10 md:space-y-0 md:space-x-10">
                     <GearCarousel1/>
-                    <GearCarousel2/>
+                    <GearCarousel1/>
+                    {/* <GearCarousel2/> */}
                 </div>
             </section>
             <section className="my-20">
