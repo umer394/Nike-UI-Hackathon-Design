@@ -1,7 +1,5 @@
 
 
-import { airMAx } from "@/components/SanityFetch"
-
 
 import { Button } from "@/components/ui/button"
 import { client } from "@/sanity/lib/client"
