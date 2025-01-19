@@ -1,7 +1,11 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import { FaSearch } from 'react-icons/fa'; 
+import Badge from '@mui/material/Badge';
+import { useCart } from "@/context/context";
 export default function Navbar() {
+  const {count} = useCart()
   return (
     <header className=''>
     
@@ -58,7 +62,8 @@ export default function Navbar() {
         </div>
        
         <Link href={""}>  <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24}/></Link>
-        <Link href={"/cart"}>  <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24}/></Link>
+        
+        <Link href={"/cart"}><Badge badgeContent={count} color="error">  <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24}/></Badge></Link>
        
       </div>
     </div>
