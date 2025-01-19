@@ -7,7 +7,6 @@ import { urlFor } from "@/sanity/lib/image"
 import Image from "next/image"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 
-// Define product type
 export interface Products {
     _id: string
     id: string
@@ -34,7 +33,6 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
     const [rating, setRating] = useState<number>(0);
     const [reviews, setReviews] = useState<Review[]>([]);
 
-    
     useEffect(() => {
         const fetchData = async () => {
             const id = (await params).id;
@@ -50,18 +48,15 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
         fetchData();
     }, []);
 
-    
     useEffect(() => {
         const savedReviews = localStorage.getItem(`reviews-${ID}`);
         setReviews(savedReviews ? JSON.parse(savedReviews) : []);
     }, [ID]);
 
-
     const inputComment = (e: ChangeEvent<HTMLInputElement>) => {
         setComment(e.target.value);
     };
 
-   
     const handleRating = (selectedRating: number) => {
         setRating(selectedRating);
     };
@@ -76,7 +71,6 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
         const newReview: Review = { text: comment, rating };
         const updatedReviews = [...reviews, newReview];
 
-  
         localStorage.setItem(`reviews-${ID}`, JSON.stringify(updatedReviews));
 
         setReviews(updatedReviews);
@@ -85,7 +79,13 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
         alert("Review saved!");
     };
 
-    const { addToCart } = useCart();
+    const handleDeleteReview = (index: number) => {
+        const updatedReviews = reviews.filter((_, i) => i !== index);
+        localStorage.setItem(`reviews-${ID}`, JSON.stringify(updatedReviews));
+        setReviews(updatedReviews);
+    };
+
+    const { addToCart,addToWishlist } = useCart();
 
     return (
         <main className="max-w-[900px] p-4 mx-auto my-20">
@@ -117,7 +117,7 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                                     ))}
                                 </div>
                                 <div className="flex gap-3 mt-4">
-                                    <Button className="bg-white hover:bg-[#a7a3a3]">
+                                    <Button onClick={()=>addToWishlist(data)} className="bg-white hover:bg-[#a7a3a3]">
                                         <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24} />
                                     </Button>
                                     <Button onClick={() => addToCart(data)} className="bg-white hover:bg-[#a7a3a3]">
@@ -129,13 +129,11 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                         </div>
                     </div>
 
-                    
                     <div className="mt-10">
                         <h1 className="font-semibold text-2xl text-black">Add Reviews</h1>
 
                         <Input value={comment} onChange={inputComment} placeholder="Write your review..." />
 
-                        
                         <div className="flex mt-2">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <button
@@ -148,10 +146,8 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                             ))}
                         </div>
 
-                        
                         <Button onClick={handleSubmit} className="mt-2">Submit Review</Button>
 
-                        
                         <div className="mt-5">
                             <h1 className="font-semibold text-xl">Customer Reviews</h1>
                             {reviews.length === 0 ? (
@@ -164,6 +160,9 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                                             {"★".repeat(review.rating)}
                                             {"☆".repeat(5 - review.rating)}
                                         </div>
+                                        <Button onClick={() => handleDeleteReview(index)} className="mt-2  text-black p-1 bg-white hover:text-white hover:bg-black">
+                                            delete
+                                        </Button>
                                     </div>
                                 ))
                             )}

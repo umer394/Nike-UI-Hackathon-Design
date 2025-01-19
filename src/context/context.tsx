@@ -20,16 +20,22 @@ export interface Products{
 
 interface CreateContextType {
     cart:Products[]
+    countWish:number
     count:number
     addToCart:(data:Products)=>void
     removeFromCart: (id:string) => void;
     updateCartQuantity:(id:string,quantity:number)=>void
+    addToWishlist:(data:Products)=>void
+    wishlist:Products[]
+    removeFromWishlist:(id:string)=>void
 }
 export const CartContext = createContext<CreateContextType|null>(null)
 
 export default function Context({children}:ProviderContextType){
     const [cart,setCart] = useState<Products[]>([])
     const [count,setCount] = useState<number>(0)
+    const [countWish,setCountWish] = useState<number>(0)
+    const [wishlist,setWishlist] = useState<Products[]>([])
     useEffect(()=>{
         const storedCart = localStorage.getItem("cart")
         if(storedCart){
@@ -78,8 +84,34 @@ export default function Context({children}:ProviderContextType){
         );
       };
 
+      useEffect(() => {
+        const savedWishlist = localStorage.getItem("wishlist");
+        const parsedWishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
+        setWishlist(parsedWishlist);
+        setCountWish(parsedWishlist.length); 
+    }, []);
+      const addToWishlist = (data:Products) => {
+        toast("Item added to wishlist!", {
+            description: `${data.name} has been successfully added to your wishlist.`,
+            action: {
+              label: "View Wishlist",
+              onClick: () => console.log("wishlist"), // Or navigate to cart page
+            },
+          });
+        const updatedWishlist = wishlist.some(p => p._id === data._id)
+        ? wishlist.filter(p => p._id !== data._id)
+        : [...wishlist, data];
 
-    return <CartContext.Provider value={{count,cart,addToCart,removeFromCart,updateCartQuantity}}>{children}</CartContext.Provider>
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+        
+      }
+      const removeFromWishlist=(id:string)=>{
+            setWishlist((prevWish)=>
+            prevWish.filter((wishlist)=>wishlist._id !== id))
+      }
+
+    return <CartContext.Provider value={{count,cart,addToCart,removeFromCart,updateCartQuantity,addToWishlist,wishlist,countWish,removeFromWishlist}}>{children}</CartContext.Provider>
 }
 
 export const useCart = () => {
