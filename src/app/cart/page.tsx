@@ -1,8 +1,12 @@
+"use client"
 import { CarouselSize } from "@/components/HeroCarousel"
 import { Button } from "@/components/ui/button"
+import { useCart } from "@/context/context"
 import Image from "next/image"
 
 export default function Cart(){
+    const {cart} = useCart()
+    console.log(cart)
     return (
         <main className="max-w-[1200px] mx-auto  mt-14">
             <div className="lg:flex lg:gap-x-14  xl:gap-x-20">
