@@ -15,7 +15,7 @@ export default function Page() {
             <div className="my-20">
                 <section className="">
                     <h1 className="text-xl font-semibold">How would you like to get your order?</h1>
-                    <p className="max-w-sm text-sm my-4">Customs regulation for India require a copy of the recipient's KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information. <u> Learn More</u> </p>
+                    <p className="max-w-sm text-sm my-4">Customs regulation for India require a copy of the recipient&apos;s KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information. <u> Learn More</u> </p>
                     <div className="max-w-sm border-black border-2 my-4 rounded-lg flex items-center">
                         <h4 className="text-xl font-semibold my-4 ml-4">Deliver It</h4>
                     </div>
