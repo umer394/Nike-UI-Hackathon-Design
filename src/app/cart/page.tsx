@@ -10,7 +10,7 @@ import IncDec from "./quantity"
 import Link from "next/link"
 
 export default function Cart() {
-    const { cart,removeFromCart,updateCartQuantity } = useCart()
+    const { cart,removeFromCart,updateCartQuantity,addToWishlist } = useCart()
     return (
         <main className="max-w-[1200px] mx-auto  mt-14">
             {cart.length > 0 ? (
@@ -44,7 +44,7 @@ export default function Cart() {
                                             <div className="flex gap-4 ">
                                                 <div>
                                                 <Tooltip title="wishlist">
-                                                    <IconButton >
+                                                    <IconButton onClick={()=>addToWishlist(item)}>
                                                     
                                                     <Heart />
                                                     </IconButton>

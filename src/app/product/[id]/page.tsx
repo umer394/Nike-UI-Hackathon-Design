@@ -1,9 +1,11 @@
 "use client"
+import ShareProduct from "@/components/Share"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart } from "@/context/context"
 import { client } from "@/sanity/lib/client"
 import { urlFor } from "@/sanity/lib/image"
+
 import Image from "next/image"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 
@@ -32,6 +34,7 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
     const [comment, setComment] = useState<string>("");
     const [rating, setRating] = useState<number>(0);
     const [reviews, setReviews] = useState<Review[]>([]);
+    const createdAt = new Date().toISOString().split("T")[0]
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,12 +101,13 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                             <h2 className="text-lg text-[#757575]">{data.category}</h2>
                             <h1 className="text-lg font-semibold mt-10">MRP: $ {data.price}</h1>
                             <h2 className="text-lg text-[#757575]">incl. of taxes</h2>
-                            <h2 className="text-lg text-[#757575]">(Also includes all applicable duties)</h2>
+                            <h2 className="text-lg text-[#291f1f]">(Also includes all applicable duties)</h2>
                             
                             <section>
                                 <div className="flex justify-between mt-6">
                                     <h1 className="font-semibold text-sm">Select Size</h1>
                                     <h1 className="text-sm text-[#757575]">Size Guide</h1>
+                                    
                                 </div>
                                 <div className="grid grid-cols-3 gap-2">
                                     {data.size.map((sizes, index) => (
@@ -125,6 +129,13 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                                     </Button>
                                 </div>
                                 <Button className="bg-black hover:bg-white hover:text-black mt-4 w-72 md:w-96 rounded-full h-14">Proceed To Checkout</Button>
+                                <div className="my-5 flex justify-center">
+                                <ShareProduct product={{
+                                        name: `${data.name}`,
+                                        image: `${urlFor(data.image).width(50).url()}`,
+                                        url: `${process.env.NEXT_PUBLIC_BASE_URL}/product/${data._id}`    
+                                    }}/>
+                                </div>
                             </section>
                         </div>
                     </div>
@@ -155,14 +166,20 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                             ) : (
                                 reviews.map((review, index) => (
                                     <div key={index} className="mt-2 p-2 border rounded-md">
+                                        
                                         <p className="text-lg">{review.text}</p>
                                         <div className="text-yellow-500">
                                             {"★".repeat(review.rating)}
                                             {"☆".repeat(5 - review.rating)}
                                         </div>
-                                        <Button onClick={() => handleDeleteReview(index)} className="mt-2  text-black p-1 bg-white hover:text-white hover:bg-black">
-                                            delete
-                                        </Button>
+                                        <div className="flex justify-between items-center">
+
+                                        
+                                            <Button onClick={() => handleDeleteReview(index)} className="mt-2  text-black p-1 bg-white hover:text-white hover:bg-black">
+                                                delete
+                                            </Button>
+                                            <h1 className="text-[14px]">{createdAt}</h1>
+                                        </div>
                                     </div>
                                 ))
                             )}

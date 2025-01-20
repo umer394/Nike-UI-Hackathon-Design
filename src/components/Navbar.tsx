@@ -4,9 +4,10 @@ import Link from "next/link";
 import { FaSearch } from 'react-icons/fa'; 
 import Badge from '@mui/material/Badge';
 import { useCart } from "@/context/context";
-// import SearchBar from "./search";
+
 export default function Navbar() {
   const {count,countWish} = useCart()
+  
   return (
     <header className=''>
     

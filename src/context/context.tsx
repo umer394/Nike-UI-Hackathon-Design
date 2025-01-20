@@ -1,6 +1,7 @@
 "use client"
 import {  createContext, useContext, useEffect, useState } from "react"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 type ProviderContextType = {
     children:React.ReactNode
 }
@@ -36,6 +37,7 @@ export default function Context({children}:ProviderContextType){
     const [count,setCount] = useState<number>(0)
     const [countWish,setCountWish] = useState<number>(0)
     const [wishlist,setWishlist] = useState<Products[]>([])
+    const router = useRouter()
     useEffect(()=>{
         const storedCart = localStorage.getItem("cart")
         if(storedCart){
@@ -51,7 +53,7 @@ export default function Context({children}:ProviderContextType){
             description: `${data.name} has been successfully added to your cart.`,
             action: {
               label: "View Cart",
-              onClick: () => console.log("cart"), // Or navigate to cart page
+              onClick: () => router.push("/cart"), // Or navigate to cart page
             },
           });
         setCart((prevCart) => {
@@ -71,9 +73,10 @@ export default function Context({children}:ProviderContextType){
     }
 
     const removeFromCart = (_id: string) => {
-        setCart((prevItems) =>
+        const newCart = setCart((prevItems) =>
           prevItems.filter((cart) => cart._id   !== _id)
         );
+        localStorage.removeItem(JSON.stringify(newCart))
       };  
 
       const updateCartQuantity = (id: string, quantity: number) => {
@@ -95,7 +98,7 @@ export default function Context({children}:ProviderContextType){
             description: `${data.name} has been successfully added to your wishlist.`,
             action: {
               label: "View Wishlist",
-              onClick: () => console.log("wishlist"), // Or navigate to cart page
+              onClick: () => router.push("/wishlist"), // Or navigate to cart page
             },
           });
         const updatedWishlist = wishlist.some(p => p._id === data._id)
@@ -106,10 +109,13 @@ export default function Context({children}:ProviderContextType){
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
         
       }
-      const removeFromWishlist=(id:string)=>{
-            setWishlist((prevWish)=>
-            prevWish.filter((wishlist)=>wishlist._id !== id))
-      }
+      const removeFromWishlist = (id: string) => {
+        setWishlist((prevWish) => {
+            const updatedWishlist = prevWish.filter((wishlist) => wishlist._id !== id);
+            localStorage.setItem("wishlist", JSON.stringify(updatedWishlist)); // ✅ update localStorage
+            return updatedWishlist;
+        });
+    }
 
     return <CartContext.Provider value={{count,cart,addToCart,removeFromCart,updateCartQuantity,addToWishlist,wishlist,countWish,removeFromWishlist}}>{children}</CartContext.Provider>
 }

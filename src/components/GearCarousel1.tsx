@@ -47,7 +47,7 @@ export function GearCarousel1() {
         ))}
         
       </CarouselContent>
-      <div className="absolute bottom-[390px] md:bottom-[430px] md:right-14 right-14 lg:bottom-[310px] xl:bottom-[380px]">
+      <div className="absolute bottom-[450px] md:bottom-[430px] md:right-14 right-14 lg:bottom-[310px] xl:bottom-[380px]">
       <CarouselPrevious />
       <CarouselNext />
       </div>
