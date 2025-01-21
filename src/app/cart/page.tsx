@@ -88,7 +88,9 @@ export default function Cart() {
                         </div>
                         <hr />
 
-                        <Button className="mt-6 rounded-full h-16">Member Checkout</Button>
+                        <Button className="mt-6 rounded-full h-16">
+                            <Link href={"/checkout"}>Proceed To Checkout</Link>
+                        </Button>
                     </section>
                 </div>
             ) : (

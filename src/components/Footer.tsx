@@ -21,7 +21,7 @@ export default function Footer() {
       <div>
         <h3 className="text-sm font-semibold mb-4">GET HELP</h3>
         <ul className="space-y-2 text-sm">
-          <li><Link href="/orderstatus" className="hover:underline">Order Status</Link></li>
+          <li><Link href="/tracking" className="hover:underline">Order Status</Link></li>
           <li><Link href="#" className="hover:underline">Delivery</Link></li>
           <li><Link href="#" className="hover:underline">Returns</Link></li>
           <li><Link href="#" className="hover:underline">Payment Options</Link></li>

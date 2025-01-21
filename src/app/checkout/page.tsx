@@ -1,78 +1,319 @@
-import { Input } from "@/components/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
+
+"use client";
+import React, { useState } from "react";
+import axios from "axios";
+import { Address, Rate, trackingObjType } from "@/components/data/type";
+
+import Link from "next/link";
+import { cartProductsWhichCanBeShipped } from "@/components/data/data";
 
 
-export default function Page() {
-    return (
-        <main className="max-w-[1200px] mx-auto">
-            <div className="my-20">
-                <section className="">
-                    <h1 className="text-xl font-semibold">How would you like to get your order?</h1>
-                    <p className="max-w-sm text-sm my-4">Customs regulation for India require a copy of the recipient's KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information. <u> Learn More</u> </p>
-                    <div className="max-w-sm border-black border-2 my-4 rounded-lg flex items-center">
-                        <h4 className="text-xl font-semibold my-4 ml-4">Deliver It</h4>
-                    </div>
-                    <h1 className="text-xl font-semibold mt-10">Enter your name and address.</h1>
-                    <div className="space-y-4 my-10">
-                        <Input type="text" placeholder="First Name" className="w-96 h-12 placeholder:text-black shadow-sm  border-2" />
-                        <Input type="text" placeholder="Last Name" className="w-96 h-12 placeholder:text-black shadow-sm  border-2" />
-                        <Input type="text" placeholder="Address Line 1" className="w-96 h-12 placeholder:text-black shadow-sm  border-2" />
-                        <Input type="text" placeholder="Address Line 2" className="w-96 h-12 placeholder:text-black shadow-sm  border-2" />
-                        <Input type="text" placeholder="Address Line 3" className="w-96 h-12 placeholder:text-black shadow-sm  border-2" />
-                        <div className="flex gap-6">
-                            <Input type="number" placeholder="Postal Code" className="w-[180px]  h-12 placeholder:text-black shadow-sm  border-2" />
-                            <Input type="text" placeholder="Locality" className="w-[180px] h-12 placeholder:text-black shadow-sm  border-2" />
-                        </div>
-                        <div className="flex gap-6">
+const ShippingRatesPage = () => {
 
+  const [shipeToAddress, setshipeToAddress] = useState<Address>({
+    name: "Muhammad Umer",
+      phone: "+1 555 987 6543",
+      addressLine1: "456 Oak Avenue",
+      addressLine2: "Suite 200",
+      cityLocality: "Los Angeles",
+      stateProvince: "CA",
+      postalCode: "90001",
+      countryCode: "US",
+      addressResidentialIndicator: "no", // 'no' means a commercial address
+  });
 
-                            <Input type="" placeholder="Pakistan" disabled className="w-[180px] h-12 placeholder:text-black shadow-sm  border-2" />
-                            <Select>
-                                <SelectTrigger className="w-[180px] h-12">
-                                    <SelectValue placeholder="State" className="placeholder:text-black" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="PB">Punjab</SelectItem>
-                                    <SelectItem value="SD">Sindh</SelectItem>
-                                    <SelectItem value="BL">Balochistan</SelectItem>
-                                    <SelectItem value="KPK">Khyber Pakhtunkhwa</SelectItem>
-                                    <SelectItem value="GB">Gilgit-Baltistan</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="flex flex-col text-black gap-4 gap-y-6 my-4">
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="terms" />
-                                <label
-                                    htmlFor="terms"
-                                    className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                    Save this address to my profile
-                                </label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="terms" />
-                                <label
-                                    htmlFor="terms"
-                                    className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                    Make this my preferred address
-                                </label>
-                            </div>
-                        </div>
+  const [rates, setRates] = useState<Rate[]>([]);
+  const [rateId, setrateId] = useState<string | null>(null);
+  const [labelPdf, setLabelPdf] = useState<string | null>(null);
+  const [trackingObj, setTrackingObj] = useState<trackingObjType | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
+  // Function to handle form submission of shipping rates
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors([]);
+    setRates([]);
 
-                    </div>
-                </section>
-                <section></section>
+    try {
+      const response = await axios.post("/api/shipengine/get-rates", {
+        shipeToAddress,
+        // map the cart products which can be shipped and use only weight and dimensions
+        packages: cartProductsWhichCanBeShipped.map((product) => ({
+          weight: product.weight,
+          dimensions: product.dimensions,
+        })),
+      });
+      // see the response in browser
+    //   if(!response.data){
+        console.log(response.data);
+    //     alert("Something issue")
+    //   }
+      
+      // Update the state with the fetched rates
+      setRates(response.data.shipmentDetails.rateResponse.rates);
+    } catch (error) {
+      console.log(error);
+      setErrors(["An error occurred while fetching rates."]);
+      alert("Pleace check your internet connection")
+    } finally {
+      setLoading(false);
+      
+    }
+  };
+
+  // Function to create label from selected rate
+  const handleCreateLabel = async () => {
+    if (!rateId) {
+      alert("Please select a rate to create a label.");
+    }
+
+    setLoading(true);
+    setErrors([]);
+
+    try {
+      // get rateId which user selected
+      const response = await axios.post("/api/shipengine/label", {
+        rateId: rateId,
+      });
+      const labelData = response.data;
+      // see the response of label in browser
+      console.log(labelData);
+      // set pdf url
+      setLabelPdf(labelData.labelDownload.href);
+      // set tracking obj
+      setTrackingObj({
+        trackingNumber: labelData.trackingNumber,
+        labelId: labelData.labelId,
+        carrierCode: labelData.carrierCode,
+      });
+    } catch (error) {
+      console.log(error);
+      setErrors(["An error occurred while creating the label."]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className=" flex flex-col justify-center items-center text-black  py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg  p-6">
+      <h1 className="text-xl font-semibold">How would you like to get your order?</h1>
+      <p className="max-w-sm text-sm my-4">Customs regulation for India require a copy of the recipient&apos;s KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information. <u> Learn More</u> </p>
+      <div className="max-w-sm border-black border-2 my-4 rounded-lg flex items-center">
+        <h4 className="text-xl font-semibold my-4 ml-4">Deliver It</h4>
+    </div>
+    <h1 className="text-xl font-semibold mt-10">Enter your name and address.</h1>
+        {/* Form Section */}
+        <form onSubmit={handleSubmit} className=" my-10">
+          {/* To Address Section */}
+          <div>
+            {/* <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              Ship To Address
+            </h2> */}
+            <div className="space-y-4 flex flex-col">
+              <input
+                type="text"
+                placeholder="Name"
+                value={shipeToAddress.name}
+                onChange={(e) =>
+                  setshipeToAddress({ ...shipeToAddress, name: e.target.value })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Phone"
+                value={shipeToAddress.phone}
+                onChange={(e) =>
+                  setshipeToAddress({
+                    ...shipeToAddress,
+                    phone: e.target.value,
+                  })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Address Line 1"
+                value={shipeToAddress.addressLine1}
+                onChange={(e) =>
+                  setshipeToAddress({
+                    ...shipeToAddress,
+                    addressLine1: e.target.value,
+                  })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Address Line 2"
+                value={shipeToAddress.addressLine2}
+                onChange={(e) =>
+                  setshipeToAddress({
+                    ...shipeToAddress,
+                    addressLine2: e.target.value,
+                  })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+              />
+              <input
+                type="text"
+                placeholder="City"
+                value={shipeToAddress.cityLocality}
+                onChange={(e) =>
+                  setshipeToAddress({
+                    ...shipeToAddress,
+                    cityLocality: e.target.value,
+                  })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                required
+              />
+              <input
+                type="text"
+                placeholder="State/Province"
+                value={shipeToAddress.stateProvince}
+                onChange={(e) =>
+                  setshipeToAddress({
+                    ...shipeToAddress,
+                    stateProvince: e.target.value,
+                  })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Postal Code"
+                value={shipeToAddress.postalCode}
+                onChange={(e) =>
+                  setshipeToAddress({
+                    ...shipeToAddress,
+                    postalCode: e.target.value,
+                  })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Country Code (e.g., PK)"
+                value={shipeToAddress.countryCode}
+                onChange={(e) =>
+                  setshipeToAddress({
+                    ...shipeToAddress,
+                    countryCode: e.target.value,
+                  })
+                }
+                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                required
+              />
             </div>
-        </main>
-    )
-}
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-6  w-96 rounded-lg h-16 bg-black text-white hover:bg-slate-700 disabled:bg-slate-700"
+          >
+            {loading ? "Calculating..." : "Get Shipping Rates"}
+          </button>
+        </form>
+
+        {/* Display Available Rates */}
+        {rates.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              Available Shipping Rates
+            </h2>
+            <div className="gap-4 grid grid-cols-2 items-center ">
+              {rates.map((rate) => (
+                <div
+                  key={rate.rateId}
+                  className={` border rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer ${
+                    rateId === rate.rateId
+                      ? "border-black bg-blue-200"
+                      : "border-gray-200 bg-gray-50"
+                  }`}
+                  onClick={() => setrateId(rate.rateId)}
+                >
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="shippingRate"
+                      checked={rateId === rate.rateId}
+                      onChange={() => setrateId(rate.rateId)}
+                      className="form-radio h-4 w-4 text-blue-500"
+                    />
+                    <div>
+                      <p className="text-sm font-medium text-gray-700">
+                        <strong>Carrier:</strong> {rate.carrierFriendlyName}
+                      </p>
+                      <p className="text-gray-600">
+                        <strong>Service:</strong> {rate.serviceType}
+                      </p>
+                      <p className="text-gray-800 text-sm font-semibold">
+                        <strong>Cost:</strong> {rate.shippingAmount.amount}{" "}
+                        {rate.shippingAmount.currency}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Create Label Button */}
+        {rateId && (
+          <div className="mt-8">
+            <button
+              onClick={handleCreateLabel}
+              disabled={loading}
+              className="mt-6  w-96 rounded-lg h-16 bg-black text-white hover:bg-slate-700 disabled:bg-slate-700"
+            >
+              {loading ? "Creating Label..." : "Create Label"}
+            </button>
+          </div>
+        )}
+        
+        {trackingObj && (
+          <div className="mt-8">
+            <h2 className="text-xl max-w-sm font-semibold text-gray-800 mb-4">
+              Tracking thinks (We are using ShipEngine test api key so order will not trace)
+            </h2>
+            <p>Tracking number: {trackingObj.trackingNumber}</p>
+            <p> labelId: {trackingObj.labelId}</p>
+            <p> carrierCode: {trackingObj.carrierCode}</p>
+            <Link href={`/tracking/?labelId=${trackingObj.labelId}`}>
+              <button className="mt-6  w-32 rounded-lg h-12 bg-black text-white hover:bg-slate-700">Track Order</button>
+            </Link>
+          </div>
+        )}
+        {labelPdf && (
+         <Link target="_blank" href={labelPdf}> <button className="mt-6  w-36 rounded-lg h-12 bg-black text-white hover:bg-slate-700 ">Download Label</button></Link>
+        )}
+        {errors.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Errors</h2>
+            <div className="space-y-2">
+              {errors.map((error, index) => (
+                <p key={index} className="text-red-500">
+                  {error}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ShippingRatesPage;
