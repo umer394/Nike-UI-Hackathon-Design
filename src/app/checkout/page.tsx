@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Address, Rate, trackingObjType } from "@/components/data/type";
 
-import Link from "next/link";
+
 import { cartProductsWhichCanBeShipped } from "@/components/data/data";
+import Link from "next/link";
 
 
-const ShippingRatesPage = () => {
-
+export default function Page(){
   const [shipeToAddress, setshipeToAddress] = useState<Address>({
     name: "Muhammad Umer",
       phone: "+1 555 987 6543",
@@ -316,4 +316,4 @@ const ShippingRatesPage = () => {
   );
 };
 
-export default ShippingRatesPage;
+
