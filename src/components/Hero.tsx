@@ -4,6 +4,7 @@ import { CarouselSize } from "./HeroCarousel"
 import { GearCarousel1 } from "./GearCarousel1"
 
 import Link from "next/link"
+import LanguageSwitcher from "./LanguageSwitcher"
 export default function Hero(){
     return (
         <main className="">
@@ -104,8 +105,13 @@ export default function Hero(){
                         <li>Kids Jordan Shoes</li>
                         <li>Kids Basketball Shoes</li>
                     </ul>
+                   
                     </div>
+                    
                 </div>
+                <div className="mb-6">
+        <LanguageSwitcher />
+      </div>
             </section>
         </main>
     )

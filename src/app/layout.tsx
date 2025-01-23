@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Context from "@/context/context";
 import { Toaster } from "sonner";
+import Chatbot from "@/components/Chatbot";
 
 
 const geistSans = localFont({
@@ -36,6 +37,7 @@ export default function RootLayout({
       >
         <Navbar/>
         {children}
+        <Chatbot/>
         
         <Toaster />
         <Footer/>

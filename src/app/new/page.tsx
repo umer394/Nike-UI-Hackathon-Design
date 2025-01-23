@@ -5,6 +5,17 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { FiFilter } from "react-icons/fi";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
 import { Button } from "@/components/ui/button";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+  } from "@/components/ui/pagination"
+
+  
 export default function Featured(){
     return (
         <main className="my-20 max-w-[1300px] mx-auto flex gap-x-4 lg:gap-x-20">
@@ -71,6 +82,28 @@ export default function Featured(){
                     <div className="mb-20">
                         <FeaturedCarousel/>
                     </div>
+                    <div className="my-4">
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                            <PaginationPrevious href="#" />
+                            </PaginationItem>
+                            <PaginationItem>
+                            <PaginationLink href="#">1</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                            <PaginationLink href="#">2</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                            <PaginationEllipsis />
+                            </PaginationItem>
+                            <PaginationItem>
+                            <PaginationNext href="#" />
+                            </PaginationItem>
+                        </PaginationContent>
+                        </Pagination>
+                    </div>
+                    
                     <hr />
                     <section className="my-10">
                         <h1 className="font-semibold text-xl">Related Categories</h1>
