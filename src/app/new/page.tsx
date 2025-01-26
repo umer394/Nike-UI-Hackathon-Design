@@ -14,6 +14,9 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
 
   
 export default function Featured(){
@@ -80,7 +83,10 @@ export default function Featured(){
                     </h2>
                 </div>
                     <div className="mb-20">
+                        <Suspense fallback={<div><Skeleton className="w-[100px] h-[20px] rounded-full" />
+                            </div>}>
                         <FeaturedCarousel/>
+                        </Suspense>
                     </div>
                     <div className="my-4">
                     <Pagination>

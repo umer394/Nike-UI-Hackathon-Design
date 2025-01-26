@@ -2,7 +2,7 @@ import Image from "next/image"
 import { Button } from "./ui/button"
 import { CarouselSize } from "./HeroCarousel"
 import { GearCarousel1 } from "./GearCarousel1"
-
+import { Suspense } from "react"
 import Link from "next/link"
 import LanguageSwitcher from "./LanguageSwitcher"
 export default function Hero(){
@@ -25,7 +25,9 @@ export default function Hero(){
             </div>
             <div>
                 <h1 className="font-semibold text:lg md:text-xl mb-3 ml-2">Best Of Air Max</h1>
+                <Suspense>
                 <CarouselSize/>
+                </Suspense>
             </div>
             <section className="my-20">
                 <h1 className="font-semibold text-xl mb-3 ml-2">Featured</h1>
@@ -39,8 +41,12 @@ export default function Hero(){
             <section>
                 <h1 className="font-semibold text-xl mb-3 ml-2">Gear Up</h1>
                 <div className="md:flex space-y-10 md:space-y-0 md:space-x-10">
-                    <GearCarousel1/>
-                    <GearCarousel1/>
+                    <Suspense>
+                        <GearCarousel1/>
+                    </Suspense>
+                    <Suspense>
+                        <GearCarousel1/>
+                    </Suspense>
                     {/* <GearCarousel2/> */}
                 </div>
             </section>
