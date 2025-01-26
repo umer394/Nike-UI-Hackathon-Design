@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/context";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { useEffect, useState, FormEvent } from "react";
 
 interface Products {
     _id: string;
