@@ -12,7 +12,7 @@ export default function Hero(){
                  <h1 className="font-semibold">Hello Nike App</h1>
                  <p className="text-sm">Download the app to access everything Nike. <u className="font-semibold">Get Your Great</u></p>
            </section>
-            <Image src={"/hero/hero.png"} alt={"shoes"} width={1344} height={700}/>
+            <Image rel="preload" src={"/hero/hero.png"} alt={"shoes"} width={1344} height={700}/>
             <div className="flex flex-col justify-center items-center max-w-[480px] mx-auto space-y-3 my-10">
                 <p className="font-semibold">First Look</p>
                 <h1 className="font-semibold text-3xl md:text-4xl">NIKE AIR MAX PULSE</h1>
@@ -40,7 +40,7 @@ export default function Hero(){
             </section>
             <section>
                 <h1 className="font-semibold text-xl mb-3 ml-2">Gear Up</h1>
-                <div className="md:flex space-y-10 md:space-y-0 md:space-x-10">
+                <div className="md:flex space-y-10 md:space-y-0 md:space-x-10 ">
                     <Suspense>
                         <GearCarousel1/>
                     </Suspense>

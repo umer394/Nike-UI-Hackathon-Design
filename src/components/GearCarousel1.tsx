@@ -22,12 +22,12 @@ export function GearCarousel1() {
       opts={{
         align: "start",
       }}
-      className="w-full"
+      className=" md:w-[360px] lg:w-full"
     >
-      <CarouselContent>
+      <CarouselContent >
         {gear.map((item) => (
           
-          <CarouselItem key={item._id} className="lg:basis-1/2">
+          <CarouselItem key={item._id} className="  lg:basis-1/2 ">
             <Link href={`/product/${item._id}`}>
             <div className="p-1">
               <Card>

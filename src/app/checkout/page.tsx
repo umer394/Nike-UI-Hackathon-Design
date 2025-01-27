@@ -97,10 +97,10 @@ export default function Page(){
   };
 
   return (
-    <div className=" flex flex-col justify-center items-center text-black  py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg  p-6">
+    <div className=" flex flex-col justify-center items-center text-black   overflow-clip py-8 md:px-4 px-0 lg:px-8">
+      <div className="max-w-[250px] mx-auto bg-white rounded-lg  md:p-6">
       <h1 className="text-xl font-semibold">How would you like to get your order?</h1>
-      <p className="max-w-sm text-sm my-4">Customs regulation for India require a copy of the recipient&apos;s KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information. <u> Learn More</u> </p>
+      <p className="max-w-sm text-sm my-4">Customs regulation for India require a copy of the recipient&apos;s KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information. <u className="font-semibold"> Learn More</u> </p>
       <div className="max-w-sm border-black border-2 my-4 rounded-lg flex items-center">
         <h4 className="text-xl font-semibold my-4 ml-4">Deliver It</h4>
     </div>
@@ -120,7 +120,7 @@ export default function Page(){
                 onChange={(e) =>
                   setshipeToAddress({ ...shipeToAddress, name: e.target.value })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
                 required
               />
               <input
@@ -133,7 +133,7 @@ export default function Page(){
                     phone: e.target.value,
                   })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
                 required
               />
               <input
@@ -146,7 +146,7 @@ export default function Page(){
                     addressLine1: e.target.value,
                   })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
                 required
               />
               <input
@@ -159,7 +159,7 @@ export default function Page(){
                     addressLine2: e.target.value,
                   })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
               />
               <input
                 type="text"
@@ -171,7 +171,7 @@ export default function Page(){
                     cityLocality: e.target.value,
                   })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
                 required
               />
               <input
@@ -184,7 +184,7 @@ export default function Page(){
                     stateProvince: e.target.value,
                   })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
                 required
               />
               <input
@@ -197,7 +197,7 @@ export default function Page(){
                     postalCode: e.target.value,
                   })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
                 required
               />
               <input
@@ -210,7 +210,7 @@ export default function Page(){
                     countryCode: e.target.value,
                   })
                 }
-                className="w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
+                className="w-60 md:w-96 h-12 p-2 placeholder:text-black shadow-sm rounded-lg  border-2"
                 required
               />
             </div>
@@ -220,7 +220,7 @@ export default function Page(){
           <button
             type="submit"
             disabled={loading}
-            className="mt-6  w-96 rounded-lg h-16 bg-black text-white hover:bg-slate-700 disabled:bg-slate-700"
+            className="mt-6  w-60 md:w-96 rounded-lg h-16 bg-black text-white hover:bg-slate-700 disabled:bg-slate-700"
           >
             {loading ? "Calculating..." : "Get Shipping Rates"}
           </button>
@@ -232,7 +232,7 @@ export default function Page(){
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Available Shipping Rates
             </h2>
-            <div className="gap-4 grid grid-cols-2 items-center ">
+            <div className="gap-4 grid md:grid-cols-2 items-center ">
               {rates.map((rate) => (
                 <div
                   key={rate.rateId}
@@ -276,7 +276,7 @@ export default function Page(){
             <button
               onClick={handleCreateLabel}
               disabled={loading}
-              className="mt-6  w-96 rounded-lg h-16 bg-black text-white hover:bg-slate-700 disabled:bg-slate-700"
+              className="mt-6  w-60 md:w-96 rounded-lg h-16 bg-black text-white hover:bg-slate-700 disabled:bg-slate-700"
             >
               {loading ? "Creating Label..." : "Create Label"}
             </button>
