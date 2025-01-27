@@ -1,0 +1,22 @@
+Muhammad umer,304953 (Student leader),Friday 9-12,Testing csv report,,,,
+,,,,,,,
+,,,,,,,
+Test Case ID,Test Case Description,Test Steps,Expected Result,Actual Result,Status,Severity Level,Remarks
+TC001,Validate product listing page,Open product page > Verify products,Products displayed correctly,Products displayed correctly,Passed,Low,No issues found
+TC002,Test API error handling,Disconnect API > Refresh page,Show fallback UI with error message,Error message shown,Passed,Medium,Handled gracefully
+TC003,Check cart functionality,Add product to cart > Verify cart contents,Cart updates with added product,Cart updates as expected,Passed,High,Works as expected
+TC004,Ensure responsiveness on mobile,Resize browser window > Check layout,Layout adjusts properly to screen size,Responsive layout working as intended,Passed,Medium,Test successful
+TC005,Carousel buttons,previous >  next,move back on previous and move forward on next,buttons work as expected,Passed,Low,Handled gracefully
+TC006,dynamic routing,click on product > dynamic page,open selected product on same dynamic page,all products open in same page,Passed,Low,Works as expected
+TC007,Products Fetch From _id,pass sanity id  on Link > Fetch using params ,pass sanity id  on Link > Fetch using params ,Products displayed correctly,Passed,Medium,Handled gracefully
+TC008,Hamburger ,Hamburger icon >small screen,show hamburger icon for small screens only ,buttons work as expected,Passed,Low,Test successful
+TC009,order data,order > data save,after payment data save on sanity,Stucking to send order data after shipment,In Progress,Low,Working in Progress
+TC010,Wishlist functionality,Add product to wishlist > Verify wishlist contents,wishlist updates with added product,wishlist updates as product,Passed,Medium,Works as expected
+TC011,Review Section ,open Product >  add review,review save with ratings and time,review section work as expected,Passed,High,Test successful
+TC012,Chatbot,Chatbot > help,open chatbot for help,stucking to integrate,Failed,High,Not working
+TC013,Header links,Heder Links> open page,headers link open as expected page,headers work as expected,Passed,Low,Works as expected
+TC014,CDN ,add images hostname in remote patterns,images fetched properly,images fetched properly,Passed,Low,Works as expected
+TC015,badge,add to cart prodct >  badge count increase,after adding into cart badge will increase,in increase after refresh,Failed,Medium,Working in Progress
+TC016,Review > timespan,add review submit  time ,review successfully submitted with current timespan,review successfully submitted with current timespan,Passed,Low,Works as expected
+TC017,Quantity > amount,increase amount if we increase quantity,amount increase in relatime wen Increase in quantity,amount increase in relatime wen Increase in quantity,Passed,Low,Test successful
+TC018,Api fetch without  Network,Fetch Products > Show easy error message,after fetching on low network shows easy alert message ,shows difficult error message,Failed,High,Working in Progress
