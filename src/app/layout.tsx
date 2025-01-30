@@ -6,7 +6,10 @@ import Footer from "@/components/Footer";
 import Context from "@/context/context";
 import { Toaster } from "sonner";
 import Chatbot from "@/components/Chatbot";
-
+import {
+  ClerkProvider,
+ 
+} from '@clerk/nextjs'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,11 +33,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <Context>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* <SignedOut>
+            <SignInButton />
+          </SignedOut> */}
+          {/* <SignedIn>
+            <UserButton />
+          </SignedIn> */}
         <Navbar/>
         {children}
         <Chatbot/>
@@ -44,5 +54,6 @@ export default function RootLayout({
       </body>
       </Context>
     </html>
+    </ClerkProvider>
   );
 }

@@ -17,7 +17,7 @@ export default function Cart() {
                 <div className="lg:flex lg:gap-x-14  xl:gap-x-20">
 
 
-                    <section className=" ">
+                    <section className=" mx-4">
                         <div className="bg-[#F5F5F5] p-4">
                             <h1 className="font-semibold">Free Delivery</h1>
                             <p className="text-sm">Applies to orders of ₹ 14 000.00 or more. <u className="font-semibold">View Details</u> </p>
@@ -27,13 +27,13 @@ export default function Cart() {
 
                             {cart.map((item) => {
                                 return (
-                                    <div key={item._id} className="md:flex md:space-x-10 mx-20 md:mx-0 mt-6">
+                                    <div key={item._id} className="md:flex md:space-x-10 mx-10 md:mx-0 mt-6">
                                         <Link href={`/product/${item._id}`}>
                                             <Image src={urlFor(item.image).width(200).url()} alt={"shoe"} width={200} height={200} />
                                         </Link>
                                         <div className="space-y-8">
                                             <div className="md:flex justify-between font-semibold text-[12px] md:text-md md:gap-x-24">
-                                                <h1>{item.name}</h1>
+                                                <h1 className="text-xl">{item.name}</h1>
                                                 <p>MRP: ₹ {(item.price * (item.quantity ?? 0)).toFixed(2)}</p>
                                             </div>
                                             <div className="space-y-2">
@@ -71,7 +71,7 @@ export default function Cart() {
                             })}
                         </div>
                     </section>
-                    <section className=" flex flex-col ">
+                    <section className=" flex flex-col mx-4">
                         <h1 className="font-semibold mb-6">Summary</h1>
                         <div className="flex font-medium text-sm justify-between">
                             <h1>Subtotal</h1>
@@ -104,7 +104,7 @@ export default function Cart() {
             )}
             
             <div className="pb-10">
-                <h1 className="font-semibold text-xl ml-3 my-8">You Might Also Like This</h1>
+                <h1 className="font-semibold text-xl ml-3 my-11">You Might Also Like This</h1>
                 <CarouselSize />
             </div>
         </main>

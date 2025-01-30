@@ -4,7 +4,11 @@ import Link from "next/link";
 import { FaSearch } from 'react-icons/fa'; 
 import Badge from '@mui/material/Badge';
 import { useCart } from "@/context/context";
-
+import {
+ 
+  SignedIn,
+  UserButton
+} from '@clerk/nextjs'
 export default function Navbar() {
   const {count,countWish} = useCart()
   
@@ -16,14 +20,20 @@ export default function Navbar() {
       <div>
   <p className="text-black text-[9px] md:text-sm bg-white px-1">Skip to main content</p>
 </div>
-      <div className="flex md:gap-4 sm:gap-3 gap-1 font-semibold">
+      <div className="flex md:gap-4 items-center sm:gap-3 gap-1 font-semibold">
+        
         <Link href="/location" className="hover:text-gray-800">Find a Store</Link>
         <h2>|</h2>
         <Link href="#" className="hover:text-gray-800">Help</Link>
         <h2>|</h2>
-        <Link href="/Join" className="hover:text-gray-800">Join Us</Link>
+        <Link href="/sign-up" className="hover:text-gray-800">Join Us</Link>
         <h2>|</h2>
-        <Link href="/login" className="hover:text-gray-800">Sign In</Link>
+        <Link href="/sign-in" className="hover:text-gray-800">Sign In</Link>
+        <div >
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          </div>
       </div>
     </div>
 

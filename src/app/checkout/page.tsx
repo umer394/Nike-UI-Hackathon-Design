@@ -98,7 +98,7 @@ export default function Page(){
 
   return (
     <div className=" flex flex-col justify-center items-center text-black   overflow-clip py-8 md:px-4 px-0 lg:px-8">
-      <div className="max-w-[250px] mx-auto bg-white rounded-lg  md:p-6">
+      <div className="max-w-[250px] md:max-w-[650px] mx-auto bg-white rounded-lg  md:p-6">
       <h1 className="text-xl font-semibold">How would you like to get your order?</h1>
       <p className="max-w-sm text-sm my-4">Customs regulation for India require a copy of the recipient&apos;s KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information. <u className="font-semibold"> Learn More</u> </p>
       <div className="max-w-sm border-black border-2 my-4 rounded-lg flex items-center">

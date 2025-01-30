@@ -22,7 +22,7 @@ export function CarouselSize() {
       opts={{
         align: "start",
       }}
-      className="w-full"
+      className="w-full max-w-[315px] md:max-w-[760px] lg:max-w-[1024px] xl:max-w-[1440px] mx-auto"
     >
       <CarouselContent>
         {airMAx.map((item) => (
@@ -47,7 +47,7 @@ export function CarouselSize() {
         ))}
         
       </CarouselContent>
-      <div className="absolute  bottom-[550px] right-14 md:bottom-[450px] md:right-14 lg:bottom-[400px] xl:bottom-[500px]">
+      <div className="absolute  bottom-[420px] md:bottom-[490px] lg:bottom-[450px] xl:bottom-[560px] right-14  ">
       <CarouselPrevious />
       <CarouselNext />
       </div>

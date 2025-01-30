@@ -22,7 +22,7 @@ export function GearCarousel1() {
       opts={{
         align: "start",
       }}
-      className=" md:w-[360px] lg:w-full"
+      className="w-full max-w-[315px] md:max-w-[760px] lg:max-w-[1024px] xl:max-w-[1440px] mx-auto"
     >
       <CarouselContent >
         {gear.map((item) => (
@@ -47,7 +47,7 @@ export function GearCarousel1() {
         ))}
         
       </CarouselContent>
-      <div className="absolute bottom-[450px] md:bottom-[430px] md:right-14 right-14 lg:bottom-[310px] xl:bottom-[380px]">
+      <div className="absolute bottom-[390px] md:bottom-[490px] md:right-14 right-14 lg:bottom-[310px] xl:bottom-[380px]">
       <CarouselPrevious />
       <CarouselNext />
       </div>

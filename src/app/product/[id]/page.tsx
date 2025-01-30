@@ -7,6 +7,7 @@ import { client } from "@/sanity/lib/client"
 import { urlFor } from "@/sanity/lib/image"
 
 import Image from "next/image"
+import Link from "next/link"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 
 export interface Products {
@@ -121,14 +122,14 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
                                     ))}
                                 </div>
                                 <div className="flex gap-3 mt-4">
-                                    <Button onClick={()=>addToWishlist(data)} className="bg-white hover:bg-[#a7a3a3]">
+                                    <Button onClick={()=>addToWishlist(data)} className="bg-white hover:bg-[#e73838]">
                                         <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24} />
                                     </Button>
-                                    <Button onClick={() => addToCart(data)} className="bg-white hover:bg-[#a7a3a3]">
+                                    <Button onClick={() => addToCart(data)} className="bg-white hover:bg-[#e73838]">
                                         <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24} />
                                     </Button>
                                 </div>
-                                <Button className="bg-black hover:bg-white hover:text-black mt-4 w-72 md:w-96 rounded-full h-14">Proceed To Checkout</Button>
+                                <Button className="bg-black hover:bg-white hover:text-black mt-4 w-72 md:w-96 rounded-full h-14"> <Link href={"/checkout"}>Proceed To Checkout</Link> </Button>
                                 <div className="my-5 flex justify-center">
                                 <ShareProduct product={{
                                         name: `${data.name}`,
