@@ -21,8 +21,7 @@ export interface Products{
 
 interface CreateContextType {
     cart:Products[]
-    countWish:number
-    count:number
+
     addToCart:(data:Products)=>void
     removeFromCart: (id:string) => void;
     updateCartQuantity:(id:string,quantity:number)=>void
@@ -34,15 +33,14 @@ export const CartContext = createContext<CreateContextType|null>(null)
 
 export default function Context({children}:ProviderContextType){
     const [cart,setCart] = useState<Products[]>([])
-    const [count,setCount] = useState<number>(0)
-    const [countWish,setCountWish] = useState<number>(0)
+
     const [wishlist,setWishlist] = useState<Products[]>([])
     const router = useRouter()
     useEffect(()=>{
         const storedCart = localStorage.getItem("cart")
         if(storedCart){
             setCart(JSON.parse(storedCart))
-            setCount(JSON.parse(storedCart).length)
+          
         }
     },[])
     useEffect(()=>{
@@ -53,7 +51,7 @@ export default function Context({children}:ProviderContextType){
             description: `${data.name} has been successfully added to your cart.`,
             action: {
               label: "View Cart",
-              onClick: () => router.push("/cart"), // Or navigate to cart page
+              onClick: () => router.push("/cart"), 
             },
           });
         setCart((prevCart) => {
@@ -65,7 +63,7 @@ export default function Context({children}:ProviderContextType){
                   : item
               );
             }
-            // setCount(cart.length)
+          
             
             return [...prevCart, { ...data, quantity: 1 }];
         })
@@ -91,7 +89,7 @@ export default function Context({children}:ProviderContextType){
         const savedWishlist = localStorage.getItem("wishlist");
         const parsedWishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
         setWishlist(parsedWishlist);
-        setCountWish(parsedWishlist.length); 
+
     }, []);
       const addToWishlist = (data:Products) => {
         toast("Item added to wishlist!", {
@@ -117,7 +115,7 @@ export default function Context({children}:ProviderContextType){
         });
     }
 
-    return <CartContext.Provider value={{count,cart,addToCart,removeFromCart,updateCartQuantity,addToWishlist,wishlist,countWish,removeFromWishlist}}>{children}</CartContext.Provider>
+    return <CartContext.Provider value={{cart,addToCart,removeFromCart,updateCartQuantity,addToWishlist,wishlist,removeFromWishlist}}>{children}</CartContext.Provider>
 }
 
 export const useCart = () => {

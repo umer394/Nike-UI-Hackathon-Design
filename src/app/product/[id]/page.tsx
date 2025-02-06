@@ -2,6 +2,7 @@
 import ShareProduct from "@/components/Share"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Skeleton } from "@/components/ui/skeleton"
 import { useCart } from "@/context/context"
 import { client } from "@/sanity/lib/client"
 import { urlFor } from "@/sanity/lib/image"
@@ -36,9 +37,11 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
     const [rating, setRating] = useState<number>(0);
     const [reviews, setReviews] = useState<Review[]>([]);
     const createdAt = new Date().toISOString().split("T")[0]
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = async () => {
+
             const id = (await params).id;
             setID(id);
 
@@ -48,6 +51,7 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
             };
             const product: Products[] = await ListingData();
             setItem(product);
+            setLoading(false)
         };
         fetchData();
     }, []);
@@ -89,105 +93,126 @@ export default function HeroProduct({ params }: { params: Promise<{ id: string }
         setReviews(updatedReviews);
     };
 
-    const { addToCart,addToWishlist } = useCart();
+
+
+    const { addToCart, addToWishlist } = useCart();
 
     return (
-        <main className="max-w-[900px] p-4 mx-auto my-20">
-            {item.map((data) => (
-                <div key={data._id}>
-                    <div className="md:flex md:space-x-10 lg:space-x-40">
-                        <Image src={urlFor(data.image).width(500).url()} alt={data.name} width={500} height={500} />
-                        <div>
-                            <h1 className="text-xl md:text-4xl">{data.name}</h1>
-                            <h2 className="text-lg text-[#757575]">{data.category}</h2>
-                            <h1 className="text-lg font-semibold mt-10">MRP: $ {data.price}</h1>
-                            <h2 className="text-lg text-[#757575]">incl. of taxes</h2>
-                            <h2 className="text-lg text-[#291f1f]">(Also includes all applicable duties)</h2>
-                            
-                            <section>
-                                <div className="flex justify-between mt-6">
-                                    <h1 className="font-semibold text-sm">Select Size</h1>
-                                    <h1 className="text-sm text-[#757575]">Size Guide</h1>
-                                    
-                                </div>
-                                <div className="grid grid-cols-3 gap-2">
-                                    {data.size.map((sizes, index) => (
-                                        <Button key={index} className="bg-white text-black border-[1px] border-black hover:bg-black hover:text-white">{sizes}</Button>
-                                    ))}
-                                </div>
-                                <div>
-                                    <h1 className="font-semibold text-sm">Select Color</h1>
-                                    {data.colors.map((color, index) => (
-                                        <Button key={index} className="bg-white text-black border-[1px] border-black hover:bg-black hover:text-white">{color}</Button>
-                                    ))}
-                                </div>
-                                <div className="flex gap-3 mt-4">
-                                    <Button onClick={()=>addToWishlist(data)} className="bg-white hover:bg-[#e73838]">
-                                        <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24} />
-                                    </Button>
-                                    <Button onClick={() => addToCart(data)} className="bg-white hover:bg-[#e73838]">
-                                        <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24} />
-                                    </Button>
-                                </div>
-                                <Button className="bg-black hover:bg-white hover:text-black mt-4 w-72 md:w-96 rounded-full h-14"> <Link href={"/checkout"}>Proceed To Checkout</Link> </Button>
-                                <div className="my-5 flex justify-center">
-                                <ShareProduct product={{
-                                        name: `${data.name}`,
-                                        image: `${urlFor(data.image).width(50).url()}`,
-                                        url: `${process.env.NEXT_PUBLIC_BASE_URL}/product/${data._id}`    
-                                    }}/>
-                                </div>
-                            </section>
+        <div>
+            {loading ? (
+                <div className="flex flex-col justify-center items-center py-40 space-y-3">
+                    <div className="flex items-center space-x-4">
+                        <Skeleton className="h-20 w-20 rounded-full" />
+                        <div className="space-y-2">
+                            <Skeleton className="h-4 w-[250px]" />
+                            <Skeleton className="h-4 w-[250px]" />
+                            <Skeleton className="h-4 w-[200px]" />
+                        <Skeleton className="h-4 w-[200px]" />
                         </div>
                     </div>
-
-                    <div className="mt-10">
-                        <h1 className="font-semibold text-2xl text-black">Add Reviews</h1>
-
-                        <Input value={comment} onChange={inputComment} placeholder="Write your review..." />
-
-                        <div className="flex mt-2">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                                <button
-                                    key={star}
-                                    onClick={() => handleRating(star)}
-                                    className={`text-2xl ${rating >= star ? "text-yellow-500" : "text-gray-400"}`}
-                                >
-                                    ★
-                                </button>
-                            ))}
-                        </div>
-
-                        <Button onClick={handleSubmit} className="mt-2">Submit Review</Button>
-
-                        <div className="mt-5">
-                            <h1 className="font-semibold text-xl">Customer Reviews</h1>
-                            {reviews.length === 0 ? (
-                                <p className="text-gray-500">No reviews yet. Be the first to review!</p>
-                            ) : (
-                                reviews.map((review, index) => (
-                                    <div key={index} className="mt-2 p-2 border rounded-md">
-                                        
-                                        <p className="text-lg">{review.text}</p>
-                                        <div className="text-yellow-500">
-                                            {"★".repeat(review.rating)}
-                                            {"☆".repeat(5 - review.rating)}
-                                        </div>
-                                        <div className="flex justify-between items-center">
-
-                                        
-                                            <Button onClick={() => handleDeleteReview(index)} className="mt-2  text-black p-1 bg-white hover:text-white hover:bg-black">
-                                                delete
-                                            </Button>
-                                            <h1 className="text-[14px]">{createdAt}</h1>
-                                        </div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                    </div>
+                   
+                    <Skeleton className="h-[225px] w-[350px] rounded-xl" />
+                    
                 </div>
-            ))}
-        </main>
+            ) : (
+                <main className="max-w-[900px] p-4 mx-auto my-20">
+                    {item.map((data) => (
+                        <div key={data._id}>
+                            <div className="md:flex md:space-x-10 lg:space-x-40">
+                                <Image src={urlFor(data.image).width(500).url()} alt={data.name} width={500} height={500} />
+                                <div>
+                                    <h1 className="text-xl md:text-4xl">{data.name}</h1>
+                                    <h2 className="text-lg text-[#757575]">{data.category}</h2>
+                                    <h1 className="text-lg font-semibold mt-10">MRP: $ {data.price}</h1>
+                                    <h2 className="text-lg text-[#757575]">incl. of taxes</h2>
+                                    <h2 className="text-lg text-[#291f1f]">(Also includes all applicable duties)</h2>
+
+                                    <section>
+                                        <div className="flex justify-between mt-6">
+                                            <h1 className="font-semibold text-sm">Select Size</h1>
+                                            <h1 className="text-sm text-[#757575]">Size Guide</h1>
+
+                                        </div>
+                                        <div className="grid grid-cols-3 gap-2">
+                                            {data.size.map((sizes, index) => (
+                                                <Button key={index} className="bg-white text-black border-[1px] border-black hover:bg-black hover:text-white">{sizes}</Button>
+                                            ))}
+                                        </div>
+                                        <div>
+                                            <h1 className="font-semibold text-sm">Select Color</h1>
+                                            {data.colors.map((color, index) => (
+                                                <Button key={index} className="bg-white text-black border-[1px] border-black hover:bg-black hover:text-white">{color}</Button>
+                                            ))}
+                                        </div>
+                                        <div className="flex gap-3 mt-4">
+                                            <Button onClick={() => addToWishlist(data)} className="bg-white hover:bg-[#e73838]">
+                                                <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24} />
+                                            </Button>
+                                            <Button onClick={() => addToCart(data)} className="bg-white hover:bg-[#e73838]">
+                                                <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24} />
+                                            </Button>
+                                        </div>
+                                        <Button className="bg-black hover:bg-white hover:text-black mt-4 w-72 md:w-96 rounded-full h-14"> <Link href={"/checkout"}>Proceed To Checkout</Link> </Button>
+                                        <div className="my-5 flex justify-center">
+                                            <ShareProduct product={{
+                                                name: `${data.name}`,
+                                                image: `${urlFor(data.image).width(50).url()}`,
+                                                url: `${process.env.NEXT_PUBLIC_BASE_URL}/product/${data._id}`
+                                            }} />
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+
+                            <div className="mt-10">
+                                <h1 className="font-semibold text-2xl text-black">Add Reviews</h1>
+
+                                <Input value={comment} onChange={inputComment} placeholder="Write your review..." />
+
+                                <div className="flex mt-2">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <button
+                                            key={star}
+                                            onClick={() => handleRating(star)}
+                                            className={`text-2xl ${rating >= star ? "text-yellow-500" : "text-gray-400"}`}
+                                        >
+                                            ★
+                                        </button>
+                                    ))}
+                                </div>
+
+                                <Button onClick={handleSubmit} className="mt-2">Submit Review</Button>
+
+                                <div className="mt-5">
+                                    <h1 className="font-semibold text-xl">Customer Reviews</h1>
+                                    {reviews.length === 0 ? (
+                                        <p className="text-gray-500">No reviews yet. Be the first to review!</p>
+                                    ) : (
+                                        reviews.map((review, index) => (
+                                            <div key={index} className="mt-2 p-2 border rounded-md">
+
+                                                <p className="text-lg">{review.text}</p>
+                                                <div className="text-yellow-500">
+                                                    {"★".repeat(review.rating)}
+                                                    {"☆".repeat(5 - review.rating)}
+                                                </div>
+                                                <div className="flex justify-between items-center">
+
+
+                                                    <Button onClick={() => handleDeleteReview(index)} className="mt-2  text-black p-1 bg-white hover:text-white hover:bg-black">
+                                                        delete
+                                                    </Button>
+                                                    <h1 className="text-[14px]">{createdAt}</h1>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </main>
+            )}
+        </div>
     );
 }

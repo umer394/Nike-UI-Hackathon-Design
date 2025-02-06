@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { FaMinus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 
 export default function IncDec({ quantity, updateQuantity}: { quantity: number; updateQuantity: (newQuantity: number) => void }){
       const [increment,setIncrement] = useState<number>(1)
@@ -21,17 +22,16 @@ export default function IncDec({ quantity, updateQuantity}: { quantity: number; 
     return(
         <div>
             {quantity >= 2 ? (
-                <div className="flex items-center border-[#afadad] border-[2px] px-2 rounded-lg  ">
-                    <h1>{quantity}</h1>
-                    <div className="flex flex-col -space-y-1">
-                        <button className="rotate-180" onClick={Increment}><IoMdArrowDropdown/></button>
-                        <button onClick={Decrement}><IoMdArrowDropdown/></button>    
-                    </div>
+                <div className="flex justify-center  items-center border-[#afadad] border-[1px] gap-2   ">
+                    <button className=" bg-[#afadad]  py-1 " onClick={Decrement}><FaMinus color="black" size={20} /></button>
+                    <h2 className="text-lg">{quantity}</h2>
+                    <button className="bg-[#afadad] py-1" onClick={Increment}><FaPlus color="black" size={20}/></button>
                 </div>
             ):(
-                <div className="flex items-center px-2  border-[#afadad] border-[2px] rounded-lg">
-                    <h1>{increment}</h1>
-                    <button className="rotate-180" onClick={Increment}><IoMdArrowDropdown/></button>
+                <div className="flex justify-center  items-center border-[#afadad] border-[1px] gap-2">
+                    <button className=" bg-[#afadad] py-1" ><FaMinus color="black" size={20} /></button>
+                    <h2 className="text-lg">{quantity}</h2>
+                    <button className="bg-[#afadad] py-1" onClick={Increment}><FaPlus color="black" size={20}/></button>
                 </div>
             )}
             

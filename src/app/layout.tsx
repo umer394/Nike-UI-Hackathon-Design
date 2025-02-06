@@ -11,6 +11,7 @@ import {
  
 } from '@clerk/nextjs'
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
           </SignedIn> */}
         <Navbar/>
         {children}
+      
         <Chatbot/>
         
         <Toaster />

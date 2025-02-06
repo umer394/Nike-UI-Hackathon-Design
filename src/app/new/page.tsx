@@ -21,8 +21,9 @@ import { Skeleton } from "@/components/ui/skeleton";
   
 export default function Featured(){
     return (
-        <main className="my-20 max-w-[1300px] mx-auto flex gap-x-4 lg:gap-x-20">
-           <section className="flex flex-col max-w-[200px]">
+        <main className="my-20 max-w-[1300px] mx-auto ">
+            <div className="flex gap-x-4 lg:gap-x-20">
+            <section className="flex flex-col max-w-[200px]">
                 <h1 className="font-semibold text-sm  md:text-2xl">New(500)</h1>
                 <div className="font-medium text-[9px] md:text-[14px] mx-3 lg:text-md max-w-[150px] space-y-2 mt-6 flex flex-col">
                     <Link href={""}>Shoes</Link>
@@ -88,7 +89,12 @@ export default function Featured(){
                         <FeaturedCarousel/>
                         </Suspense>
                     </div>
-                    <div className="my-4">
+                    
+                    
+            </section>
+            </div>
+           <div className="mx-4">
+           <div className="my-4 ">
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
@@ -111,9 +117,9 @@ export default function Featured(){
                     </div>
                     
                     <hr />
-                    <section className="my-10">
+                    <section className="my-10 ">
                         <h1 className="font-semibold text-xl">Related Categories</h1>
-                        <div className="space-x-2 space-y-2">
+                        <div className="space-x-2 my-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 xl:grid-cols-8 space-y-2">
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Selling Products</Button>
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Shoes</Button>
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">New Basketball Shoes</Button>
@@ -126,7 +132,7 @@ export default function Featured(){
                             <Button className="bg-white text-black rounded-full border-[1px] shadow-none">Best Training & Gym</Button>
                         </div>
                     </section> 
-            </section>
+           </div>
            
              
         </main>

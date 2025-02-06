@@ -8,9 +8,21 @@ import {  Heart, Trash2 } from "lucide-react"
 import Image from "next/image"
 import IncDec from "./quantity"
 import Link from "next/link"
+import { useUser } from '@clerk/nextjs';
+
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Cart() {
     const { cart,removeFromCart,updateCartQuantity,addToWishlist } = useCart()
+    const { isSignedIn } = useUser();
+    const router = useRouter();
+
+    useEffect(()=>{
+        if (!isSignedIn) {
+            router.push('/sign-in'); 
+          }
+    },[isSignedIn,router])
     return (
         <main className="max-w-[1200px] mx-auto  mt-14">
             {cart.length > 0 ? (
@@ -88,8 +100,9 @@ export default function Cart() {
                         </div>
                         <hr />
 
-                        <Button className="mt-6 rounded-full h-16">
-                            <Link href={"/checkout"}>Proceed To Checkout</Link>
+                        <Button onClick={()=> router.push("/checkout")} className="mt-6 rounded-full h-16">
+                            Proceed To Checkout
+                            {/* <Link href={"/checkout"}>Proceed To Checkout</Link> */}
                         </Button>
                     </section>
                 </div>

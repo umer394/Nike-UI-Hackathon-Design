@@ -7,11 +7,12 @@ import { useCart } from "@/context/context";
 import {
  
   SignedIn,
-  UserButton
+  UserButton,
+  useUser
 } from '@clerk/nextjs'
 export default function Navbar() {
-  const {count,countWish} = useCart()
-  
+  const {wishlist,cart} = useCart()
+  const {isSignedIn} = useUser()
   return (
     <header className=''>
     
@@ -26,9 +27,9 @@ export default function Navbar() {
         <h2>|</h2>
         <Link href="#" className="hover:text-gray-800">Help</Link>
         <h2>|</h2>
-        <Link href="/sign-up" className="hover:text-gray-800">Join Us</Link>
-        <h2>|</h2>
-        <Link href="/sign-in" className="hover:text-gray-800">Sign In</Link>
+        <Link href="/sign-up" className={`${isSignedIn ? "hidden" :"block"} hover:text-gray-800`}>Join Us</Link>
+        <h2 className={`${isSignedIn ? "hidden" :"block"}`}>|</h2>
+        <Link href="/sign-in" className={`${isSignedIn ? "hidden" :"block"} hover:text-gray-800`}>Sign In</Link>
         <div >
           <SignedIn>
             <UserButton />
@@ -74,9 +75,9 @@ export default function Navbar() {
           {/* <SearchBar /> */}
         </div>
        
-        <Link href={"/wishlist"}><Badge badgeContent={countWish} color="error">  <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24}/></Badge></Link>
+        <Link href={"/wishlist"}><Badge badgeContent={wishlist.length} color="error">  <Image src={"/header/heart.png"} alt={"heart"} width={24} height={24}/></Badge></Link>
         
-        <Link href={"/cart"}><Badge badgeContent={count} color="error">  <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24}/></Badge></Link>
+        <Link href={"/cart"}><Badge badgeContent={cart.length} color="error">  <Image src={"/header/cart.png"} alt={"cart"} width={24} height={24}/></Badge></Link>
        
       </div>
     </div>
